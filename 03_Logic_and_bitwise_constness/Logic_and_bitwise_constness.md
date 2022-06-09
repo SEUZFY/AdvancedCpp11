@@ -6,7 +6,7 @@ It is logically clear to programmer that `getItem()` is supposed to be const fun
 
 However compiler disagrees.
 
-```
+```cpp
 class BigArray{
 	std::vector<int> v; // huge array
 	int accessCounter;
@@ -26,13 +26,19 @@ error: increment of member ‘BigArray::accessCounter’ in read-only object
 ## Solution
 
 ### 1) Mutable keyword
-```
+```cpp
 mutable int accessCounter;
+
+/*
+The keyword mutable is mainly used to allow a particular data member of const object to be modified. 
+When we declare a function as const, the this pointer passed to function becomes const. 
+Adding mutable to a variable allows a const pointer to change members.
+*/
 ```
 
 ### 2) Const cast (should be avoided)
 
-```
+```cpp
 	int getItem(int index) const{
 		const_cast<BigArray*>(this)->accessCounter++;
 		return v[index];
