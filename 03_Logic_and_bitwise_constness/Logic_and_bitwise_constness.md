@@ -104,3 +104,62 @@ the reference cannot refer to a different pointer (nature of references)
 the referred pointer cannot point to a different value
 the pointed value of the referred pointer cannot be changed
 3. fun is also a const function, meaning that it cannot directly modify members unless they are marked mutable, also it can only call other const functions
+
+### Reference to a pointer
+
+* If a pointer is passed to a function as a parameter and tried to be modified 
+  then the changes made to the pointer does not reflects back outside that function.
+
+* This is because only a copy of the pointer is passed to the function. It can be said that **pass by pointer** is **passing a pointer by value**. 
+
+* When you modify the pointer inside the function - instead of modifying the variable, you are only modifying a copy of the pointer 
+  and the original pointer remains unmodified.
+  
+  ```cpp
+  int global_Var = 42;
+  
+  /* function to change pointer value */
+  void changePointerValue(int* p)
+  {
+      p = &global_Var;
+  }
+  
+  int main()
+  {
+      int var = 23;
+      int* ptr = &var;  // *ptr = 23 
+      changePointerValue(ptr);  // *ptr is still 23
+      return 0;
+  }
+  ```
+* **Solution 1 - second pointer**
+  ```cpp  
+  void changePointerValue(int** second_ptr)
+  {
+    *second_ptr = &global_var;  // *second_ptr means the first ptr
+  }
+  
+  int main()
+  {
+      int var = 23;
+      int* ptr = &var;  // *ptr = 23 
+      changePointerValue(&ptr);  // *ptr changed to the value of global_var
+      return 0;
+  }
+* **Solution 2 - reference to a pointer**
+  ```cpp  
+  void changePointerValue(int*& ref_ptr)  // int*& NOT int&* : int* - the type, int*& - the reference of this type
+  {
+    ref_pre = &global_var;  // the reference is an alias
+  }
+  
+  int main()
+  {
+      int var = 23;
+      int* ptr = &var;  // *ptr = 23 
+      changePointerValue(ptr);  // *ptr changed to the value of global_var
+      return 0;
+  }
+  ```
+  more info:
+  https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/
