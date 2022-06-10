@@ -66,14 +66,14 @@ private:
 
 In shared pointers it's useful to use private destructor. But this code won't compile:
 
-```
+```cpp
 private:
 	~OpenFile() { std::cout << "File destructed!" << std::endl; };
 ```
 
 The solution is to use public interface
 
-```
+```cpp
 public:
 	OpenFile(std::string filename)
 	{
@@ -86,16 +86,18 @@ private:
 
 The problem still exists because `file` is stored on the `stack`
 
-```
+```cpp
 	OpenFile f(std::string("Vadim_file"));
 	f.destroyMe();
 ```
 
 So we are to use a heap allocation
 
-```
+```cpp
 	OpenFile* f = new OpenFile(std::string("Vadim_file"));
 	f->destroyMe();
 ```
 
 It's also may be useful in embedded system programming
+
+When operating(i.e. creating, opening, etc.) a `file`, use `pointer` and `heap allocation` ?
