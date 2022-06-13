@@ -87,10 +87,10 @@ Yellow dog destroyed!
 Dog destroyed!
 ```
 
-## 析构函数
-C++默认的析构函数不是虚函数是因为虚函数需要额外的虚函数表和虚表指针，占用额外的内存。 
+## virtual destructor
+The default destructor of c++ is not a virtual function because virtual functions require additional virtual function tables and virtual table pointers, which occupy additional memory.
 
-而对于不会被继承的类来说，其析构函数如果是虚函数，就会浪费内存。 因此C++默认的析构函数不是虚函数，而是只有当需要当作父类时，设置为虚函数.
+For classes that will not be inherited, if the destructor is a virtual function, it will waste memory. Therefore, the default destructor of c++ is not a virtual function, but a virtual function only when it needs to be used as a parent class
 
-## 工厂模式
-工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”
+## factory pattern
+The essence of the factory method pattern is to "define an interface for creating objects, but let the class implementing this interface decide which class to instantiate. **Factory methods delay the instantiation of classes to subclasses**."
